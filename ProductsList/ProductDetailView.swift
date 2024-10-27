@@ -4,9 +4,9 @@ struct ProductDetailView: View {
     var product: Product
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 12) {
             Text(product.name)
-                .font(.title)
+                .font(.title.bold())
             Text("Vendor: \(product.brand)")
                 .font(.title2)
             Text("Category: \(product.productCategory)")
@@ -17,7 +17,7 @@ struct ProductDetailView: View {
                 .frame(maxWidth: .infinity, maxHeight: 400)
             HStack {
                 Text(product.basePrice, format: .currency(code: Locale.current.currency?.identifier ?? "EUR"))
-                    .font(.title2)
+                    .font(.title2.bold())
                 Spacer()
                 Text("Currently \(product.stock) in stock")
             }
@@ -25,6 +25,10 @@ struct ProductDetailView: View {
                 .font(.subheadline)
             Spacer()
         }.padding()
+         .padding(.horizontal, 15)
+         .background(.linearGradient(colors: [.white, .lightGray],
+                                     startPoint: .topTrailing,
+                                     endPoint: .bottomLeading))
     }
 }
 
