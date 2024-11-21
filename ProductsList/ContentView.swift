@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("doesNeedOnboarding") private var doesNeedOnboarding = true
+    
     @State private var mainVM = MainViewModel()
     @State private var searchText: String = ""
     @State private var selectedProducts = [Product]()
@@ -56,6 +58,9 @@ struct ContentView: View {
                             brandLC.contains(searchLC) ||
                             descLC.contains(searchLC)
                  }
+             }
+             .sheet(isPresented: $doesNeedOnboarding) {
+                 OnBoardingView()
              }
         }
     }
