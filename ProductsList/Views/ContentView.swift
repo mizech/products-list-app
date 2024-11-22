@@ -26,20 +26,18 @@ struct ContentView: View {
                         }
                     }
                 }
-            }.searchable(text: $searchText, prompt: "Search for devices")
+            }
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Add", systemImage: "plus") {
+                        
+                    }
+                }
+            })
+            .searchable(text: $searchText, prompt: "Search for devices")
                 .textInputAutocapitalization(.never)
              .navigationTitle("Devices available")
              .listStyle(.plain)
-             .background(
-                LinearGradient(
-                    colors: [
-                        .lightGray,
-                        .white
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-             )
              .onAppear() {
                  selectedProducts = mainVM.products
              }
