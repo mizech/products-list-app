@@ -6,7 +6,7 @@ struct OnBoardingView: View {
     var body: some View {
         TabView {
             VStack {
-                Text("Products-List App")
+                Text("Products-list app")
                     .font(.largeTitle)
                 Text("Swipe left to see instructions")
                     .font(.subheadline)
@@ -15,7 +15,7 @@ struct OnBoardingView: View {
                     .scaledToFill()
             }
             VStack(alignment: .leading, spacing: 25) {
-                Text("How to use it")
+                Text("How to use the app")
                     .font(.title)
                 Text("Use the list-screen for scrolling over the existing products.")
                     .font(.headline)
@@ -33,6 +33,7 @@ struct OnBoardingView: View {
                         .padding()
                          .frame(maxWidth: .infinity)
                         .foregroundStyle(.white)
+                        .fontWeight(.bold)
                         .background(.blue)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
