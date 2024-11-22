@@ -1,9 +1,11 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     @AppStorage("doesNeedOnboarding") private var doesNeedOnboarding = true
+    @Environment(\.modelContext) private var modelContext
+    @Query private var products: [Product]
     
-    @State private var mainVM = MainViewModel()
     @State private var searchText: String = ""
     @State private var selectedProducts = [Product]()
     @State private var isAddSheetShown = false
@@ -11,12 +13,12 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(selectedProducts) { product in
+                ForEach(products) { product in
                     NavigationLink(destination: ProductDetailView(product: product)) {
                         VStack(alignment: .leading, spacing: 6) {
                             Text(product.name)
                                 .font(.title2.bold())
-                            Text(product.description)
+                            Text(product.desc)
                                 .lineLimit(2)
                             HStack {
                                 Text(product.basePrice, format: .currency(code: Locale.current.currency?.identifier ?? "EUR"))
@@ -28,41 +30,23 @@ struct ContentView: View {
                     }
                 }
             }
-            .toolbar(content: {
+            .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add", systemImage: "plus") {
                         isAddSheetShown.toggle()
                     }
                 }
-            })
-            .searchable(text: $searchText, prompt: "Search for devices")
+            }
+            .searchable(text: $searchText, prompt: "Search for products")
                 .textInputAutocapitalization(.never)
-             .navigationTitle("Devices available")
+             .navigationTitle("Products available")
              .listStyle(.plain)
-             .onAppear() {
-                 selectedProducts = mainVM.products
-             }
-             .onChange(of: searchText) {
-                 selectedProducts = mainVM.products.filter {
-                     guard searchText.isEmpty == false else {
-                         return true
-                     }
-                     
-                     let searchLC = searchText.lowercased()
-                     let nameLC = $0.name.lowercased()
-                     let brandLC = $0.brand.lowercased()
-                     let descLC = $0.description.lowercased()
-                     
-                     return nameLC.contains(searchText) ||
-                            brandLC.contains(searchLC) ||
-                            descLC.contains(searchLC)
-                 }
-             }
+             .onChange(of: searchText) {}
              .sheet(isPresented: $doesNeedOnboarding) {
                  OnBoardingView()
              }
              .sheet(isPresented: $isAddSheetShown) {
-                 
+                 AddProductView()
              }
         }
     }

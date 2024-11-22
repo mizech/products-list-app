@@ -21,7 +21,7 @@ struct ProductDetailView: View {
                 Spacer()
                 Text("Currently \(product.stock) in stock")
             }
-            Text(product.description)
+            Text(product.desc)
                 .font(.subheadline)
             Spacer()
         }.padding()
@@ -33,5 +33,5 @@ struct ProductDetailView: View {
 }
 
 #Preview {
-    ProductDetailView(product: Product(id: 1, productCategory: "Category 1", name: "Name 1", brand: "Brand 1", description: "Some text with a description ...", basePrice: 99.99, inStock: true, stock: 16))
+    ProductDetailView(product: Product(productCategory: "Category 1", name: "Name 1", brand: "Brand 1", desc: "Some text with a description ...", basePrice: 99.99, inStock: true, stock: 16))
 }
