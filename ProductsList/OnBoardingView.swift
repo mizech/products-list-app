@@ -8,7 +8,11 @@ struct OnBoardingView: View {
             VStack {
                 Text("Products-List App")
                     .font(.largeTitle)
-                
+                Text("Swipe left to see instructions")
+                    .font(.subheadline)
+                Image(.onboard)
+                    .resizable()
+                    .scaledToFill()
             }
             VStack(alignment: .leading, spacing: 25) {
                 Text("How to use it")
