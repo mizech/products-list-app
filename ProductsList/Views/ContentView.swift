@@ -6,6 +6,7 @@ struct ContentView: View {
     @State private var mainVM = MainViewModel()
     @State private var searchText: String = ""
     @State private var selectedProducts = [Product]()
+    @State private var isAddSheetShown = false
     
     var body: some View {
         NavigationStack {
@@ -30,7 +31,7 @@ struct ContentView: View {
             .toolbar(content: {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add", systemImage: "plus") {
-                        
+                        isAddSheetShown.toggle()
                     }
                 }
             })
@@ -59,6 +60,9 @@ struct ContentView: View {
              }
              .sheet(isPresented: $doesNeedOnboarding) {
                  OnBoardingView()
+             }
+             .sheet(isPresented: $isAddSheetShown) {
+                 
              }
         }
     }
