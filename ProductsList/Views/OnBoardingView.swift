@@ -31,7 +31,7 @@ struct OnBoardingView: View {
                 } label: {
                     Text("Okay. I got it. Let's go!")
                         .padding()
-                         .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity)
                         .foregroundStyle(.white)
                         .fontWeight(.bold)
                         .background(.blue)

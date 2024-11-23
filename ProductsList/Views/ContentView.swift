@@ -28,6 +28,11 @@ struct ContentView: View {
                             }
                         }
                     }
+                }.onDelete { indexSet in
+                    for i in indexSet {
+                        let product = products[i]
+                        modelContext.delete(product)
+                    }
                 }
             }
             .toolbar {

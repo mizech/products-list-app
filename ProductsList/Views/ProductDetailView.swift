@@ -16,7 +16,10 @@ struct ProductDetailView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .frame(maxWidth: .infinity, maxHeight: 400)
             HStack {
-                Text(product.basePrice, format: .currency(code: Locale.current.currency?.identifier ?? "EUR"))
+                Text(
+                    product.basePrice,
+                    format: .currency(code: Locale.current.currency?.identifier ?? "EUR")
+                )
                     .font(.title2.bold())
                 Spacer()
                 Text("Currently \(product.stock) in stock")
@@ -33,5 +36,15 @@ struct ProductDetailView: View {
 }
 
 #Preview {
-    ProductDetailView(product: Product(productCategory: "Category 1", name: "Name 1", brand: "Brand 1", desc: "Some text with a description ...", basePrice: 99.99, inStock: true, stock: 16))
+    ProductDetailView(
+        product: Product(
+            productCategory: "Category 1",
+            name: "Name 1",
+            brand: "Brand 1",
+            desc: "Some text with a description ...",
+            basePrice: 99.99,
+            inStock: true,
+            stock: 16
+        )
+    )
 }
