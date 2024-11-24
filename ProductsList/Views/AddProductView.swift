@@ -38,6 +38,12 @@ struct AddProductView: View {
                 }
                 
                 Button {
+                    guard category.isEmpty == false &&
+                            name.isEmpty == false &&
+                            brand.isEmpty == false else {
+                        return
+                    }
+                    
                     let product = Product(
                         productCategory: category,
                         name: name,
