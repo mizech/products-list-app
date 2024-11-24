@@ -27,7 +27,7 @@ struct ContentView: View {
                  OnBoardingView()
              }
              .sheet(isPresented: $isAddSheetShown) {
-                 AddProductView()
+                 ProductFormView(title: "Enter product-data")
              }
         }
     }

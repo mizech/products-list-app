@@ -1,7 +1,12 @@
 import SwiftUI
 import SwiftData
 
-struct AddProductView: View {
+enum Actions {
+    case edit
+    case add
+}
+
+struct ProductFormView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
@@ -12,6 +17,33 @@ struct AddProductView: View {
     @State private var basePrice: Double? = nil
     @State private var inStock = false
     @State private var stock: Int? = nil
+    
+    var title: String
+    
+    init(
+        product: Product? = nil,
+        title: String
+    ) {
+        if let product = product {
+            self.category = product.productCategory
+            self.name = product.name
+            self.brand = product.brand
+            self.desc = product.desc
+            self.basePrice = product.basePrice
+            self.stock = product.stock
+            self.inStock = product.inStock
+        } else {
+            self.category = ""
+            self.name = ""
+            self.brand = ""
+            self.desc = ""
+            self.basePrice = 0
+            self.stock = 0
+            self.inStock = false
+        }
+    
+        self.title = title
+    }
     
     var body: some View {
         NavigationView {
@@ -65,7 +97,7 @@ struct AddProductView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12.0))
                 }
             }
-                .navigationTitle("Enter product-data")
+                .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -79,5 +111,16 @@ struct AddProductView: View {
 }
 
 #Preview {
-    AddProductView()
+    ProductFormView(
+        product: Product(
+            productCategory: "",
+            name: "",
+            brand: "",
+            desc: "",
+            basePrice: 0,
+            inStock: false,
+            stock: 4
+        ),
+        title: "Title"
+    )
 }
