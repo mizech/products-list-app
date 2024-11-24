@@ -19,12 +19,16 @@ struct ProductFormView: View {
     @State private var stock: Int? = nil
     
     var title: String
+    var action: Actions
+    var product: Product?
     
     init(
         product: Product? = nil,
         title: String
     ) {
         if let product = product {
+            self.product = product
+            
             self.category = product.productCategory
             self.name = product.name
             self.brand = product.brand
@@ -32,6 +36,8 @@ struct ProductFormView: View {
             self.basePrice = product.basePrice
             self.stock = product.stock
             self.inStock = product.inStock
+            
+            self.action = Actions.edit
         } else {
             self.category = ""
             self.name = ""
@@ -40,6 +46,8 @@ struct ProductFormView: View {
             self.basePrice = 0
             self.stock = 0
             self.inStock = false
+            
+            self.action = Actions.add
         }
     
         self.title = title
@@ -76,19 +84,37 @@ struct ProductFormView: View {
                         return
                     }
                     
-                    let product = Product(
-                        productCategory: category,
-                        name: name,
-                        brand: brand,
-                        desc: desc,
-                        basePrice: basePrice ?? 0.0,
-                        inStock: stock ?? 0 > 0 ? true : false,
-                        stock: stock ?? 0
-                    )
-                    modelContext.insert(product)
+                    switch action {
+                        case .edit:
+                            product?.productCategory = category
+                            product?.name = name
+                            product?.brand = brand
+                            product?.desc = desc
+                            product?.basePrice = basePrice ?? 0
+                            product?.inStock = stock ?? 0 > 0 ? true : false
+                            product?.stock = stock ?? 0
+                            
+                            do {
+                                try modelContext.save()
+                            } catch {
+                                print(error)
+                            }
+                        case .add:
+                            let product = Product(
+                                productCategory: category,
+                                name: name,
+                                brand: brand,
+                                desc: desc,
+                                basePrice: basePrice ?? 0,
+                                inStock: stock ?? 0 > 0 ? true : false,
+                                stock: stock ?? 0
+                            )
+                            modelContext.insert(product)
+                    }
+                    
                     dismiss()
                 } label: {
-                    Text("Add product")
+                    Text("Submit")
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 40)
@@ -101,7 +127,7 @@ struct ProductFormView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button("Add product", systemImage: "xmark.circle") {
+                        Button("", systemImage: "xmark.circle") {
                             dismiss()
                         }
                     }

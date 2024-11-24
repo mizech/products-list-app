@@ -17,13 +17,13 @@ struct OnBoardingView: View {
             VStack(alignment: .leading, spacing: 25) {
                 Text("How to use the app")
                     .font(.title)
-                Text("Use the list-screen for scrolling over the existing products.")
+                Text("Use the list-screen for scrolling the list of existing products.")
                     .font(.headline)
                 Text("Use the Add-button (+) for adding further products.")
                     .font(.headline)
                 Text("Use a left-swipe to remove existing products.")
                     .font(.headline)
-                Text("Tap on a single product in the list to read/update product-details")
+                Text("Tap on a single product in the list to read or update (pencil-icon) product-details.")
                     .font(.headline)
                 Spacer()
                 Button {
