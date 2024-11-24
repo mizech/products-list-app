@@ -3,38 +3,14 @@ import SwiftData
 
 struct ContentView: View {
     @AppStorage("doesNeedOnboarding") private var doesNeedOnboarding = true
-    @Environment(\.modelContext) private var modelContext
-    @Query private var products: [Product]
-    
+
     @State private var searchText: String = ""
     @State private var selectedProducts = [Product]()
     @State private var isAddSheetShown = false
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(products) { product in
-                    NavigationLink(destination: ProductDetailView(product: product)) {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text(product.name)
-                                .font(.title2.bold())
-                            Text(product.desc)
-                                .lineLimit(2)
-                            HStack {
-                                Text(product.basePrice, format: .currency(code: Locale.current.currency?.identifier ?? "EUR"))
-                                    .fontWeight(.bold)
-                                Spacer()
-                                Text("\(product.inStock ? "In Stock" : "Out of Stock")")
-                            }
-                        }
-                    }
-                }.onDelete { indexSet in
-                    for i in indexSet {
-                        let product = products[i]
-                        modelContext.delete(product)
-                    }
-                }
-            }
+            ProductsListView(searchText: searchText)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add", systemImage: "plus") {
