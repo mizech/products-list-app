@@ -44,7 +44,7 @@ struct AddProductView: View {
                         brand: brand,
                         desc: desc,
                         basePrice: basePrice ?? 0.0,
-                        inStock: stock ?? 0 > 0 ? false : true,
+                        inStock: stock ?? 0 > 0 ? true : false,
                         stock: stock ?? 0
                     )
                     modelContext.insert(product)

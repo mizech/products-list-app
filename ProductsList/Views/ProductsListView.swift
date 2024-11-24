@@ -10,10 +10,10 @@ struct ProductsListView: View {
             if searchText.isEmpty == true {
                 return true
             } else {
-                return product.name.localizedStandardContains(searchText) ||
-                    product.productCategory.localizedStandardContains(searchText) ||
-                    product.desc.localizedStandardContains(searchText) ||
-                    product.brand.localizedStandardContains(searchText)
+                return product.productCategory.localizedStandardContains(searchText) ||
+                    product.name.localizedStandardContains(searchText) ||
+                    product.brand.localizedStandardContains(searchText) ||
+                    product.desc.localizedStandardContains(searchText)
             }
         }, sort: [SortDescriptor(\Product.name)])
     }
