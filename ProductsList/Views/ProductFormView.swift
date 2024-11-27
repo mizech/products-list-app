@@ -133,6 +133,9 @@ struct ProductFormView: View {
                     }
                 }
         }
+        .onAppear {
+            UITextField.appearance().clearButtonMode = .whileEditing
+        }
     }
 }
 
